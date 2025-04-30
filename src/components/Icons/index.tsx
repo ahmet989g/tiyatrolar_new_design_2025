@@ -1,0 +1,7 @@
+export { default as LoginIcon } from './LoginIcon';
+export { default as HandshakeIcon } from './HandshakeIcon';
+export { default as AccountCircleIcon } from './AccountCircleIcon';
+export { default as InstagramIcon } from './InstagramIcon';
+export { default as XIcon } from './XIcon';
+export { default as FacebookIcon } from './FacebookIcon';
+export { default as YoutubeIcon } from './YoutubeIcon';

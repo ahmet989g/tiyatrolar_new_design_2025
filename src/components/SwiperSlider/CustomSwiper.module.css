@@ -1,0 +1,259 @@
+/* 
+ * CustomSwiper stil dosyası
+ * 
+ * Bu dosya, CustomSwiper komponenti için özel stil tanımlamalarını içerir.
+ * Swiper.js'in varsayılan stillerine ek olarak, ihtiyaç duyulan özelleştirmeleri sağlar.
+ */
+
+/* Ana container */
+.customSwiperContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Swiper başlangıç durumunda görünmez olsun, sadece JS yüklendiğinde görünsün */
+.customSwiper:not(.swiperInitialized) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.customSwiper.swiperInitialized {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+/* Navigasyon butonları temel stilleri */
+.customSwiper :global(.swiper-button-prev),
+.customSwiper :global(.swiper-button-next) {
+  color: var(--swiper-navigation-color, #000);
+  background: var(--swiper-navigation-bg, rgba(255, 255, 255, 0.8));
+  width: var(--swiper-navigation-size, 44px);
+  height: var(--swiper-navigation-size, 44px);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Butonlara hover efekti */
+.customSwiper :global(.swiper-button-prev:hover),
+.customSwiper :global(.swiper-button-next:hover) {
+  background: var(--swiper-navigation-hover-bg, #fff);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* Navigasyon butonlarındaki okları gizleyelim (custom içerikle değiştirilecek) */
+.customSwiper :global(.swiper-button-prev::after),
+.customSwiper :global(.swiper-button-next::after) {
+  display: none;
+}
+
+/* Disabled butonlar */
+.customSwiper :global(.swiper-button-disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Pagination stilleri */
+.customSwiper :global(.swiper-pagination) {
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+/* Pagination pozisyonları */
+.paginationPositionTop :global(.swiper-pagination) {
+  bottom: auto;
+  top: 10px;
+}
+
+.paginationPositionBottom :global(.swiper-pagination) {
+  bottom: 10px;
+  top: auto;
+}
+
+/* Pagination bullets */
+.customSwiper :global(.swiper-pagination-bullet) {
+  width: var(--swiper-pagination-bullet-width, 8px);
+  height: var(--swiper-pagination-bullet-height, 8px);
+  display: inline-block;
+  border-radius: 50%;
+  background: var(--swiper-pagination-bullet-inactive-color, #999);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.5);
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
+  transition: all 0.3s ease;
+}
+
+/* Aktif bullet */
+.customSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: var(--swiper-pagination-color, #007aff);
+  transform: scale(1.2);
+}
+
+/* Progressbar pagination */
+.customSwiper :global(.swiper-pagination-progressbar) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.customSwiper :global(.swiper-pagination-progressbar .swiper-pagination-progressbar-fill) {
+  background: var(--swiper-pagination-color, #007aff);
+}
+
+/* Active slayt */
+.customSwiper :global(.swiper-slide-active) {
+  z-index: 1;
+}
+
+/* Lazy loading için spinner */
+.customSwiper :global(.swiper-lazy-preloader) {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -21px;
+  margin-top: -21px;
+  z-index: 10;
+  transform-origin: 50%;
+  animation: swiper-preloader-spin 1s infinite linear;
+  box-sizing: border-box;
+  border: 4px solid var(--swiper-preloader-color, #007aff);
+  border-radius: 50%;
+  border-top-color: transparent;
+}
+
+@keyframes swiper-preloader-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Container sorgular için */
+.containerQueries {
+  container-type: inline-size;
+  container-name: swiper-container;
+}
+
+/* Container sorguları ile responsive tasarım */
+@container swiper-container (max-width: 640px) {
+  .customSwiper :global(.swiper-button-prev),
+  .customSwiper :global(.swiper-button-next) {
+    --swiper-navigation-size: 36px;
+  }
+  
+  .customSwiper :global(.swiper-pagination-bullet) {
+    --swiper-pagination-bullet-width: 6px;
+    --swiper-pagination-bullet-height: 6px;
+  }
+}
+
+@container swiper-container (min-width: 641px) and (max-width: 1024px) {
+  .customSwiper :global(.swiper-button-prev),
+  .customSwiper :global(.swiper-button-next) {
+    --swiper-navigation-size: 40px;
+  }
+}
+
+/* Tematik varyantlar - light tema */
+.lightTheme {
+  --swiper-navigation-color: #444;
+  --swiper-navigation-bg: rgba(255, 255, 255, 0.9);
+  --swiper-navigation-hover-bg: #fff;
+  --swiper-pagination-color: #444;
+}
+
+/* Tematik varyantlar - dark tema */
+.darkTheme {
+  --swiper-navigation-color: #fff;
+  --swiper-navigation-bg: rgba(0, 0, 0, 0.5);
+  --swiper-navigation-hover-bg: rgba(0, 0, 0, 0.7);
+  --swiper-pagination-color: #fff;
+  --swiper-pagination-bullet-inactive-color: #ccc;
+}
+
+/* Grid için stiller */
+.customSwiper :global(.swiper-grid-column > .swiper-wrapper) {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+/* Erişilebilirlik için fokus stilleri */
+.customSwiper :global(.swiper-button-prev:focus),
+.customSwiper :global(.swiper-button-next:focus),
+.customSwiper :global(.swiper-pagination-bullet:focus) {
+  outline: 2px solid var(--swiper-pagination-color, #007aff);
+  outline-offset: 2px;
+}
+
+/* Yüksek performans için GPU hızlandırma */
+.customSwiper :global(.swiper-wrapper) {
+  will-change: transform;
+  transform: translate3d(0px, 0px, 0px);
+  backface-visibility: hidden;
+}
+
+/* İleri seviye performans optimizasyonları */
+.highPerformance :global(.swiper-wrapper) {
+  will-change: transform;
+  transform: translate3d(0px, 0px, 0px);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.highPerformance :global(.swiper-slide) {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  perspective: 1000px;
+}
+
+/* RTL (sağdan sola) dil desteği */
+.rtl {
+  direction: rtl;
+}
+
+.rtl :global(.swiper-button-prev) {
+  right: 10px;
+  left: auto;
+}
+
+.rtl :global(.swiper-button-next) {
+  left: 10px;
+  right: auto;
+}
+
+/* Print medya sorgusu */
+@media print {
+  .customSwiperContainer {
+    overflow: visible;
+  }
+  
+  .customSwiper :global(.swiper-wrapper) {
+    display: block;
+    transform: none !important;
+    width: 100% !important;
+  }
+  
+  .customSwiper :global(.swiper-slide) {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: block;
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+  
+  .customSwiper :global(.swiper-button-prev),
+  .customSwiper :global(.swiper-button-next),
+  .customSwiper :global(.swiper-pagination) {
+    display: none;
+  }
+}

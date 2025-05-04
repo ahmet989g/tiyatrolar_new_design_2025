@@ -1,12 +1,19 @@
 import React from 'react'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const LoadingSkeletonItem = () => {
   return (
-    <div className="animate-pulse w-full">
-      <div className="relative aspect-[1/1] bg-gray-300 rounded-lg">
-        <div className="flex justify-center absolute bottom-5 left-0 right-0 w-60 mx-auto">
-          <div className="h-4 bg-gray-200 rounded-lg w-1/2 mr-5"></div>
-          <div className="h-4 bg-gray-200 rounded-lg w-1/2"></div>
+    <div className="w-full">
+      {/* Kare alan */}
+      <div className="relative w-full aspect-square">
+        <Skeleton className="absolute top-0 left-0 w-full h-full" borderRadius={12} />
+        {/* Alt çubuklar */}
+        <div className="absolute bottom-4 left-0 w-full px-4 flex justify-center gap-4">
+          <SkeletonTheme baseColor="#d0d0d0" highlightColor="#e0e0e0">
+            <Skeleton width="120px" height={16} borderRadius={8} />
+            <Skeleton width="120px" height={16} borderRadius={8} />
+          </SkeletonTheme>
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ const HomeBoxSliderItem: React.FC<HomeBoxSliderItemProps> = ({
 
   return (
     <Link href={link} className={`theater-poster-card block relative ${className}`}>
-      <div className="aspect-[1/1] relative overflow-hidden rounded-lg">
+      <div className="aspect-[1/1] relative overflow-hidden rounded-xl">
         {/* Resim */}
         <Image
           src={image}

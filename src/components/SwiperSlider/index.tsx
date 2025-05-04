@@ -1,1 +1,1 @@
-export { default } from './CustomSwiper';
+export { default } from './SwiperCustom';

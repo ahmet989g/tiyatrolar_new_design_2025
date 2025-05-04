@@ -30,7 +30,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={`
-        inline-flex items-center justify-center rounded-md font-medium
+        inline-flex items-center justify-center font-medium
         transition-all duration-200 focus:outline-none
         ${variantClasses[variant]}
         ${sizeClasses[size]}

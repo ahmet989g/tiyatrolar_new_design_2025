@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchHomeBoxSlides,
@@ -32,7 +32,7 @@ interface HomeBoxSliderProps {
  * 
  * Redux bağlantılı, tiyatro afişlerini gösteren slider
  */
-const HomeBoxSlider: React.FC<HomeBoxSliderProps> = ({
+const HomeBoxSlider: FC<HomeBoxSliderProps> = ({
   className = '',
   title
 }) => {

@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 //import { useDispatch } from 'react-redux';
 import searchReducer from './features/search/searchSlice';
 import sliderReducer from './features/slider/sliderSlice';
+import theaterSliderReducer from './features/slider/theaterSliderSlice';
 
 export const store = configureStore({
   reducer: {
     search: searchReducer,
     slider: sliderReducer,
+    theaterSlider: theaterSliderReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

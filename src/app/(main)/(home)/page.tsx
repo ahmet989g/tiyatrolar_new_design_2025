@@ -1,11 +1,22 @@
 import HomeBoxSlider from "@/components/HomeBoxSlider";
 import TheaterSlider from "@/components/TheaterSlider";
+import { TheatersByLocation, TheatersByStage } from "@/components/ThisMonthTheaterList";
 
 export default function Home() {
   return (
     <div>
       <HomeBoxSlider />
       <TheaterSlider />
+
+      {/* Sahne bazlı listeleme */}
+      <TheatersByStage
+        stageName="Baba Sahne"
+      />
+
+      {/* Lokasyon bazlı listeleme */}
+      <TheatersByLocation
+        locationName="Beşiktaş"
+      />
       <p className="text-black">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam, ipsa mollitia ratione delectus suscipit neque ex est minima rem iste eum nesciunt architecto fugit maxime quaerat dicta nobis quia obcaecati!
         Cum earum facere facilis eligendi explicabo laudantium repudiandae rem animi, provident quibusdam nemo harum quae quo eos est reprehenderit. Sunt dolor amet dignissimos cumque quisquam adipisci illo consectetur, voluptas asperiores.
         Nemo adipisci natus necessitatibus aut soluta ipsum debitis distinctio nisi omnis voluptates aspernatur totam alias dicta incidunt, similique sed tempore? Quis, architecto accusantium! Nobis corrupti molestiae in, laudantium ipsum reiciendis.

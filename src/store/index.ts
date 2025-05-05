@@ -4,6 +4,7 @@ import searchReducer from './features/search/searchSlice';
 import sliderReducer from './features/slider/sliderSlice';
 import theaterSliderReducer from './features/slider/theaterSliderSlice';
 import thisMonthTheaterListReducer from './features/home/thisMonthTheaterListSlice';
+import stagesAndGalleriesReducer from "./features/home/stagesAndGalleriesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     slider: sliderReducer,
     theaterSlider: theaterSliderReducer,
     thisMonthTheaters: thisMonthTheaterListReducer,
+    stageAndGalleries: stagesAndGalleriesReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

@@ -58,9 +58,9 @@ const stagesAndGalleriesSlice = createSlice({
 export const { resetStagesAndGalleriesState } = stagesAndGalleriesSlice.actions;
 
 // Selector'ları export etme
-export const selectStagesAndGalleries = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries.items;
-export const selectStagesAndGalleriesStatus = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries.status;
-export const selectStagesAndGalleriesError = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries.error;
+export const selectStagesAndGalleries = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.items;
+export const selectStagesAndGalleriesStatus = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.status;
+export const selectStagesAndGalleriesError = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.error;
 
 // Reducer'ı export etme
 export default stagesAndGalleriesSlice.reducer;

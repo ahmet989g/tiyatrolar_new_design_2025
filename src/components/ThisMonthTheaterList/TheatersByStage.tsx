@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import ThisMonthTheaterList from './ThisMonthTheaterList';
@@ -17,10 +17,15 @@ interface TheatersByStageProps {
 const TheatersByStage: React.FC<TheatersByStageProps> = ({ stageName, className }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status, error } = useSelector(selectTheatersByStage);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchTheatersByStage(stageName));
-  }, [dispatch, stageName]);
+    // Sadece bir kez veri yükle
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
+      dispatch(fetchTheatersByStage(stageName));
+    }
+  }, [dispatch, stageName, status]);
 
   return (
     <ThisMonthTheaterList

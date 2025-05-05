@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTheaterSlides,
@@ -29,9 +29,11 @@ const TheaterSlider: React.FC<TheaterSliderProps> = ({
   const slides = useSelector(selectTheaterSlider);
   const status = useSelector(selectTheaterSliderStatus);
   const error = useSelector(selectTheaterSliderError);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
       dispatch(fetchTheaterSlides());
     }
   }, [status, dispatch]);
@@ -49,7 +51,7 @@ const TheaterSlider: React.FC<TheaterSliderProps> = ({
 
   const loadingComponent = (
     <div className="flex gap-4 overflow-x-hidden">
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: 8 }).map((_, index) => (
         <LoadingSkeletonItem key={index} />
       ))}
     </div>

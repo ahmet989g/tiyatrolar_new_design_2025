@@ -1,5 +1,5 @@
 "use client"
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import {
   fetchTheaterGroups,
   selectTheaterGroups,
@@ -23,9 +23,11 @@ const TheaterGroups: FC<TheaterGroupsProps> = ({
   const theaterGroups = useSelector(selectTheaterGroups);
   const status = useSelector(selectTheaterGroupStatus);
   const error = useSelector(selectTheaterGroupError);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
       dispatch(fetchTheaterGroups());
     }
   }, [status, dispatch]);

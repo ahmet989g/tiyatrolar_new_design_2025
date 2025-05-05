@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import ThisMonthTheaterList from './ThisMonthTheaterList';
@@ -17,10 +17,14 @@ interface TheatersByLocationProps {
 const TheatersByLocation: React.FC<TheatersByLocationProps> = ({ locationName, className }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status, error } = useSelector(selectTheatersByLocation);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchTheatersByLocation(locationName));
-  }, [dispatch, locationName]);
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
+      dispatch(fetchTheatersByLocation(locationName));
+    }
+  }, [dispatch, locationName, status]);
 
   return (
     <ThisMonthTheaterList

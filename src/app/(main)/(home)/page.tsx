@@ -4,33 +4,51 @@ import TheaterGroups from "@/components/Home/TheaterGroups";
 import HomeBoxSlider from "@/components/HomeBoxSlider";
 import TheaterSlider from "@/components/TheaterSlider";
 import { ChildTheaters, TheatersByLocation, TheatersByStage } from "@/components/ThisMonthTheaterList";
+import LazyLoadComponent from "@/components/LazyLoadComponent";
 
 export default function Home() {
   return (
     <div>
       <HomeBoxSlider />
+
+      {/* Biletler için tiyatrolar.com.tr */}
       <TheaterSlider />
 
-      {/* Sahne bazlı listeleme */}
-      <TheatersByStage
-        stageName="Baba Sahne"
-      />
+      {/* Baba Sahne'de Bu Ay */}
+      <LazyLoadComponent>
+        <TheatersByStage
+          stageName="Baba Sahne"
+        />
+      </LazyLoadComponent>
 
-      {/* Lokasyon bazlı listeleme */}
-      <TheatersByLocation
-        locationName="Beşiktaş"
-      />
+      {/* Beşiktaş'ta Bu Ay */}
+      <LazyLoadComponent>
+        <TheatersByLocation
+          locationName="Beşiktaş"
+        />
+      </LazyLoadComponent>
 
-      <CityAndStateTheaters />
+      {/* Şehir Tiyatrolarında Bu Ay & Devlet Tiyatrolarında Bu Ay */}
+      <LazyLoadComponent>
+        <CityAndStateTheaters />
+      </LazyLoadComponent>
 
-      <section className="children-theaters bg-[#deecff] my-2">
-        <ChildTheaters />
-      </section>
+      {/* Çocuk Tiyatrolarında Bu Ay */}
+      <LazyLoadComponent>
+        <section className="children-theaters bg-[#deecff] my-2">
+          <ChildTheaters />
+        </section>
+      </LazyLoadComponent>
 
-      <StageAndGalleries />
+      {/* Popüler Sahneler ve Galeriler */}
+      <LazyLoadComponent>
+        <StageAndGalleries />
+      </LazyLoadComponent>
 
-      <TheaterGroups />
-
+      {/* Popüler Tiyatro Toplulukları */}
+      <LazyLoadComponent>
+        <TheaterGroups />
+      </LazyLoadComponent>
     </div>
   );
 }

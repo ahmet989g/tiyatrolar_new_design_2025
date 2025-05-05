@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import {
   fetchStagesAndGalleries,
   selectStagesAndGalleries,
@@ -23,9 +23,11 @@ const StageAndGalleries: FC<StageAndGalleriesProps> = ({
   const stagesAndGalleries = useSelector(selectStagesAndGalleries);
   const status = useSelector(selectStagesAndGalleriesStatus);
   const error = useSelector(selectStagesAndGalleriesError);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
       dispatch(fetchStagesAndGalleries());
     }
   }, [status, dispatch]);

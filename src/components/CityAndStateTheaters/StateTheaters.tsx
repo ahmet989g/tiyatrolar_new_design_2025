@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import CityAndStateTheaterList from './CityAndStateTheaterList';
@@ -16,10 +16,14 @@ interface StateTheatersProps {
 const StateTheaters: React.FC<StateTheatersProps> = ({ className }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status, error } = useSelector(selectStateTheaters);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchStateTheaters());
-  }, [dispatch]);
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
+      dispatch(fetchStateTheaters());
+    }
+  }, [dispatch, status]);
 
   return (
     <CityAndStateTheaterList

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import ThisMonthTheaterList from './ThisMonthTheaterList';
@@ -16,10 +16,14 @@ interface ChildTheatersProps {
 const ChildTheaters: React.FC<ChildTheatersProps> = ({ className }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status, error } = useSelector(selectChildTheaters);
+  const hasLoadedData = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchChildTheaters());
-  }, [dispatch]);
+    if (!hasLoadedData.current && (status === 'idle' || status === 'failed')) {
+      hasLoadedData.current = true; // Birden fazla kez yüklemeyi önle
+      dispatch(fetchChildTheaters());
+    }
+  }, [dispatch, status]);
 
   return (
     <ThisMonthTheaterList

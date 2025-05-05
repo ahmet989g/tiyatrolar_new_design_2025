@@ -27,10 +27,11 @@ const TheatersByLocation: React.FC<TheatersByLocationProps> = ({ locationName, c
       title={`${locationName}'ta Bu Ay`}
       description={`Bu ay ${locationName}'ta izleyebileceğiniz tüm oyunlar`}
       items={items}
-      isLoading={status === 'loading'}
+      status={status}
       error={error}
       showAllLink={`/lokasyon/${locationName}`}
       className={className}
+      columns={8}
     />
   );
 };

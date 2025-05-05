@@ -10,7 +10,7 @@ export const store = configureStore({
     search: searchReducer,
     slider: sliderReducer,
     theaterSlider: theaterSliderReducer,
-    thisMonthTheaterList: thisMonthTheaterListReducer,
+    thisMonthTheaters: thisMonthTheaterListReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

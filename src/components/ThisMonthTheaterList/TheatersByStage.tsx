@@ -27,10 +27,11 @@ const TheatersByStage: React.FC<TheatersByStageProps> = ({ stageName, className 
       title={`${stageName}'de Bu Ay`}
       description={`Bu ay ${stageName}'de izleyebileceğiniz tüm oyunlar`}
       items={items}
-      isLoading={status === 'loading'}
+      status={status}
       error={error}
       showAllLink={`/sahne/${stageName}`}
       className={className}
+      columns={8}
     />
   );
 };

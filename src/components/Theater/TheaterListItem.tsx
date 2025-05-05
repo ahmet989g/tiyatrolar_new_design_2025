@@ -22,7 +22,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
   const link = `/oyun/${slug}`;
 
   return (
-    <>
+    <div>
       <Link href={link} className={`theater-item-card block relative ${className}`}>
         <div className="relative rounded-xl overflow-hidden group">
           {/* Resim Container */}
@@ -38,7 +38,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
             {/* YENİ OYUN etiketi */}
             {isNew && (
               <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-10">
-                <span className="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold">
+                <span className="bg-primary text-white px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap">
                   YENİ OYUN
                 </span>
               </div>
@@ -48,9 +48,9 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
           </div>
         </div>
       </Link>
-      <div className="flex flex-col gap-1 mt-2">
+      <div className="flex flex-col gap-0.5 mt-2">
         <h3 className="">
-          <Link href={link} className="text-md font-semibold text-light-blue hover:text-primary">
+          <Link href={link} className="text-md font-semibold text-light-blue hover:text-primary whitespace-nowrap overflow-hidden truncate w-full block">
             {title}
           </Link>
         </h3>
@@ -60,7 +60,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
           </span>
         </div>
         <div className="">
-          <span className="text-sm font-medium text-primary">
+          <span className="text-sm font-medium text-primary whitespace-nowrap overflow-hidden truncate w-full block">
             {location}
           </span>
         </div>
@@ -78,7 +78,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
             )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

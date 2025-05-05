@@ -43,7 +43,6 @@ const HomeBoxSliderItem: React.FC<HomeBoxSliderItemProps> = ({
           priority={false}
         />
 
-        {/* Başlık */}
         <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
           <div className="flex items-center justify-center mt-2 text-white/90">
             <span className="inline-flex items-center mr-4 whitespace-nowrap text-sm font-semibold">

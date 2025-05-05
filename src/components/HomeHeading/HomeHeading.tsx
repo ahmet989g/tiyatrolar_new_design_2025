@@ -17,11 +17,11 @@ const HomeHeading: FC<HomeHeadingProps> = ({
   return (
     <div className="flex items-start justify-between mb-6">
       <div className="inline-flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-primary">{title}</h2>
+        <h2 className="text-2xl font-bold text-primary leading-none mb-1">{title}</h2>
         {description && <p className="text-sm text-secondary font-semibold">{description}</p>}
       </div>
       {buttonTitle && (
-        <Link href={buttonLink || '#'} className="flex items-center gap-2 border border-light-blue text-light-blue rounded-full px-5 py-1 text-md font-semibold hover:bg-light-blue hover:text-white transition duration-200">
+        <Link href={buttonLink || '#'} className="flex items-center gap-2 border border-light-blue text-light-blue rounded-full px-5 py-1 text-md font-semibold hover:text-primary hover:border-primary transition duration-200">
           {buttonTitle}
           <ChevronRightIcon size={18} />
         </Link>

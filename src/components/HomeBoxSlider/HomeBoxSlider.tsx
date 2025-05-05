@@ -115,7 +115,7 @@ const HomeBoxSlider: FC<HomeBoxSliderProps> = ({
             loadingComponent
           ) : (
             <SwiperCustom
-              className="home-box-slider-swiper min-h-[350px]"
+              className="home-box-slider-swiper"
               autoplay={{
                 enabled: true,
                 delay: 5000,

@@ -13,7 +13,6 @@ import TheaterListItem from '../Theater/TheaterListItem';
 import SwiperCustom from '../SwiperSlider/SwiperCustom';
 import ChevronLeftIcon from '../Icons/ChevronLeftIcon';
 import ChevronRightIcon from '../Icons/ChevronRightIcon';
-import Link from 'next/link';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
 import HomeHeading from '../HomeHeading';
 
@@ -73,7 +72,7 @@ const TheaterSlider: React.FC<TheaterSliderProps> = ({
     <section className={`theater-slider py-8 ${className}`}>
       <div className="@container-normal mx-auto px-10">
         <HomeHeading
-          title='Biletler için tiyatrolar.com.tr'
+          title={title}
           description='Hizmet bedeli ödemeden, gişe ile aynı fiyat üzerinden online bilet alabileceğiniz tüm oyunlar'
           buttonTitle='Tüm Oyunlar'
           buttonLink='/tiyatrolar'
@@ -99,8 +98,9 @@ const TheaterSlider: React.FC<TheaterSliderProps> = ({
             breakpoints={{
               320: { slidesPerView: 1.5, spaceBetween: 10 },
               640: { slidesPerView: 2.5, spaceBetween: 15 },
-              1024: { slidesPerView: 5, spaceBetween: 20 },
-              1280: { slidesPerView: 6, spaceBetween: 20 }
+              1024: { slidesPerView: 6, spaceBetween: 20 },
+              1280: { slidesPerView: 6, spaceBetween: 20 },
+              1440: { slidesPerView: 8, spaceBetween: 20 },
             }}
             grabCursor={true}
             speed={600}

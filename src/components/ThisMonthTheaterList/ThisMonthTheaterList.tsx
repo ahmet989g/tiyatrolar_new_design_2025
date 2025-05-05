@@ -5,30 +5,49 @@ import TheaterListItem from '../Theater/TheaterListItem';
 import HomeHeading from '../HomeHeading';
 import { TheaterItem } from '@/types/theaterItem';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
+import clsx from 'clsx';
 
 interface ThisMonthTheaterListProps {
   title: string;
   description?: string;
   items: TheaterItem[];
-  isLoading?: boolean;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'; // isLoading yerine status
   error?: string | null;
   className?: string;
   showAllButton?: boolean;
   showAllLink?: string;
   columns?: number;
+  containerClassName?: string;
 }
 
 const ThisMonthTheaterList: React.FC<ThisMonthTheaterListProps> = ({
   title,
   description,
   items,
-  isLoading = false,
+  status,
   error = null,
   className = '',
   showAllButton = true,
   showAllLink = '#',
-  columns = 5 // Fotoğrafta 5'er tane görünüyor
+  columns = 6,
+  containerClassName = '@container-normal mx-auto px-10',
 }) => {
+
+  const gridCols: Record<string, string> = {
+    '1': 'lg:grid-cols-1',
+    '2': 'lg:grid-cols-2',
+    '3': 'lg:grid-cols-3',
+    '4': 'lg:grid-cols-4',
+    '5': 'lg:grid-cols-5',
+    '6': 'lg:grid-cols-6',
+    '7': 'lg:grid-cols-7',
+    '8': 'lg:grid-cols-8',
+    '9': 'lg:grid-cols-9',
+    '10': 'lg:grid-cols-10',
+    '11': 'lg:grid-cols-11',
+    '12': 'lg:grid-cols-12',
+  };
+
   if (error) {
     return (
       <div className={`theater-list-section ${className}`}>
@@ -42,23 +61,23 @@ const ThisMonthTheaterList: React.FC<ThisMonthTheaterListProps> = ({
 
   return (
     <section className={`theater-list-section py-8 ${className}`}>
-      <div className="@container-normal mx-auto px-10">
+      <div className={containerClassName}>
         <HomeHeading
           title={title}
           description={description}
           buttonTitle={showAllButton ? `${items.length} Oyun` : undefined}
           buttonLink={showAllLink}
-          isLoading={isLoading}
+          isLoading={status !== 'succeeded'}
         />
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {Array.from({ length: 6 }).map((_, index) => (
+        {status !== "succeeded" ? (
+          <div className={clsx('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5', gridCols[columns])}>
+            {Array.from({ length: columns }).map((_, index) => (
               <LoadingSkeletonItem key={index} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className={clsx('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5', gridCols[columns])}>
             {items.map((item) => (
               <TheaterListItem
                 key={item.id}

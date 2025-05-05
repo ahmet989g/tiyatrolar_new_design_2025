@@ -112,7 +112,7 @@ export const fetchChildTheaters = createAsyncThunk(
       await new Promise(resolve => setTimeout(resolve, 500));
       
       return {
-        items: theaterSliderData.slice(2, 8)
+        items: theaterSliderData.slice(2, 9)
       };
     } catch (error) {
       console.error('Error fetching theaters by child:', error);

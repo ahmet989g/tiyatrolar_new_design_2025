@@ -1,0 +1,60 @@
+import { theaterGroupType } from "@/types/theaterGroup";
+
+export const theaterGroupData: theaterGroupType[] = [
+  {
+    id: "1",
+    title: "Craft",
+    slug: "craft",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/craft.jpg",
+    favoriteCount: 55,
+  },
+  {
+    id: "2",
+    title: "D22",
+    slug: "d22",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/d22.jpg",
+    favoriteCount: 50,
+  },
+  {
+    id: "3",
+    title: "DOT",
+    slug: "dot",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/dot.jpg",
+    favoriteCount: 48,
+  },
+  {
+    id: "4",
+    title: "Kadıköy Emek Tiyatrosu",
+    slug: "kadikoyemektiyatrosu",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/emek-sahnesi.jpg",
+    favoriteCount: 26,
+  },
+  {
+    id: "5",
+    title: "Galata Perform",
+    slug: "galataperform",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/galata-perform.jpg",
+    favoriteCount: 18,
+  },
+  {
+    id: "6",
+    title: "Tiyatro Pera",
+    slug: "tiyatropera",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/tiyatro-pera.jpg",
+    favoriteCount: 12,
+  },
+  {
+    id: "7",
+    title: "Tiyatro Duru",
+    slug: "tiyatroduru",
+    location: "İstanbul",
+    image: "/images/anasayfa/tiyatro-topluluklari/tiyatro-duru.jpg",
+    favoriteCount: 8,
+  },
+];

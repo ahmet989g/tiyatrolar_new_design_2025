@@ -63,7 +63,7 @@ const StageAndGalleries: FC<StageAndGalleriesProps> = ({
         {status !== "succeeded" ? (
           loadingComponent
         ) : (
-          <div className="flex gap-4 overflow-x-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-x-hidden">
             {stagesAndGalleries.map((item) => (
               <ListItem
                 key={item.slug}

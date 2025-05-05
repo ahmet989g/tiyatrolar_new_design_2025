@@ -44,7 +44,6 @@ const stagesAndGalleriesSlice = createSlice({
       })
       .addCase(fetchStagesAndGalleries.fulfilled, (state, action: PayloadAction<stageAndGalleriesType[]>) => {
         state.status = 'succeeded';
-        console.log('Sahne ve galeriler:', action.payload);
         state.items = action.payload;
       })
       .addCase(fetchStagesAndGalleries.rejected, (state, action) => {
@@ -58,9 +57,9 @@ const stagesAndGalleriesSlice = createSlice({
 export const { resetStagesAndGalleriesState } = stagesAndGalleriesSlice.actions;
 
 // Selector'ları export etme
-export const selectStagesAndGalleries = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.items;
-export const selectStagesAndGalleriesStatus = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.status;
-export const selectStagesAndGalleriesError = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.error;
+export const selectStagesAndGalleries = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.items || [];
+export const selectStagesAndGalleriesStatus = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.status || 'idle';
+export const selectStagesAndGalleriesError = (state: { stagesAndGalleries: StagesAndGalleriesState }) => state.stagesAndGalleries?.error || null;
 
 // Reducer'ı export etme
 export default stagesAndGalleriesSlice.reducer;

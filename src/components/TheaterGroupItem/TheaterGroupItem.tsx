@@ -2,35 +2,39 @@ import { FavoriteIcon } from '@/components/Icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC, memo } from 'react'
+import LoadingSkeletonItem from './LoadingSkeletonItem';
 
-interface ListItemProps {
+interface TheaterGroupItemProps {
   title: string;
   slug: string;
   location: string;
   image: string;
-  theaterCount: number;
   favoriteCount: number;
   className?: string;
+  isLoading?: boolean;
 }
 
-const ListItem: FC<ListItemProps> = ({
+const TheaterGroupItem: FC<TheaterGroupItemProps> = ({
   title,
   slug,
   location,
   image,
-  theaterCount,
   favoriteCount,
-  className = ''
+  className = '',
+  isLoading = false,
 }) => {
+  if (isLoading) {
+    return <LoadingSkeletonItem />;
+  }
   return (
     <div>
-      <Link href={`sahneler/${slug}`} className={`stage-card block relative ${className}`}>
+      <Link href={`tiyatro-toplulugu/${slug}`} className={`theater-group-card block relative ${className}`}>
         <div className="relative rounded-xl overflow-hidden group">
           {/* Resim Container */}
-          <div className="relative aspect-[16/10]">
+          <div className="relative aspect-[1/1]">
             <Image
               src={image}
-              alt={`${title} afişi`}
+              alt={`${title} logosu`}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -40,18 +44,18 @@ const ListItem: FC<ListItemProps> = ({
       </Link>
       <div className="flex flex-col gap-0.5 mt-2">
         <h3 className="">
-          <Link href={`sahneler/${slug}`} className="text-md font-semibold text-light-blue hover:text-primary whitespace-nowrap overflow-hidden truncate w-full block">
+          <Link href={`tiyatro-toplulugu/${slug}`} className="text-md font-semibold text-light-blue hover:text-primary whitespace-nowrap overflow-hidden truncate w-full block">
             {title}
           </Link>
         </h3>
         <div className="">
           <span className="text-sm font-medium text-primary">
-            {location}
+            @{slug}
           </span>
         </div>
         <div className="">
           <span className="text-sm font-medium text-light-blue">
-            Bu sahnede {theaterCount} oyun sergileniyor.
+            {location}
           </span>
         </div>
         <div className="">
@@ -64,4 +68,4 @@ const ListItem: FC<ListItemProps> = ({
   )
 }
 
-export default memo(ListItem)
+export default memo(TheaterGroupItem)

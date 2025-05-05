@@ -1,5 +1,6 @@
 import { CityAndStateTheaters } from "@/components/CityAndStateTheaters";
 import StageAndGalleries from "@/components/Home/StageAndGalleries";
+import TheaterGroups from "@/components/Home/TheaterGroups";
 import HomeBoxSlider from "@/components/HomeBoxSlider";
 import TheaterSlider from "@/components/TheaterSlider";
 import { ChildTheaters, TheatersByLocation, TheatersByStage } from "@/components/ThisMonthTheaterList";
@@ -27,6 +28,8 @@ export default function Home() {
       </section>
 
       <StageAndGalleries />
+
+      <TheaterGroups />
 
     </div>
   );

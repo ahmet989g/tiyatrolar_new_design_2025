@@ -30,7 +30,7 @@ const ChildTheaters: React.FC<ChildTheatersProps> = ({ className }) => {
       error={error}
       showAllLink={`/tiyatro/cocuk-tiyatrolari`}
       className={className}
-      columns={6}
+      columns={7}
       containerClassName='container mx-auto'
     />
   );

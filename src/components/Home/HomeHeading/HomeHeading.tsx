@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { HomeHeadingProps } from '@/types/homeHeading'
 import Link from 'next/link'
 import LoadingComponent from './LoadingComponent';
-import ChevronRightIcon from '../Icons/ChevronRightIcon';
+import ChevronRightIcon from '../../Icons/ChevronRightIcon';
 
 const HomeHeading: FC<HomeHeadingProps> = ({
   title,

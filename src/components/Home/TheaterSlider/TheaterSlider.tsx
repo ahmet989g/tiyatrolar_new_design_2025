@@ -9,10 +9,10 @@ import {
   selectTheaterSliderError
 } from '@/store/features/slider/theaterSliderSlice';
 import { AppDispatch } from '@/store';
-import TheaterListItem from '../Theater/TheaterListItem';
-import SwiperCustom from '../SwiperSlider/SwiperCustom';
-import ChevronLeftIcon from '../Icons/ChevronLeftIcon';
-import ChevronRightIcon from '../Icons/ChevronRightIcon';
+import TheaterListItem from '../../Theater/TheaterListItem';
+import SwiperCustom from '../../SwiperSlider/SwiperCustom';
+import ChevronLeftIcon from '../../Icons/ChevronLeftIcon';
+import ChevronRightIcon from '../../Icons/ChevronRightIcon';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
 import HomeHeading from '../HomeHeading';
 
@@ -72,7 +72,7 @@ const TheaterSlider: React.FC<TheaterSliderProps> = ({
 
   return (
     <section className={`theater-slider py-8 ${className}`}>
-      <div className="@container-normal mx-auto px-10">
+      <div className="@container-normal mx-auto px-20">
         <HomeHeading
           title={title}
           description='Hizmet bedeli ödemeden, gişe ile aynı fiyat üzerinden online bilet alabileceğiniz tüm oyunlar'

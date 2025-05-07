@@ -9,7 +9,7 @@ import {
 import { AppDispatch } from '@/store';
 import { useDispatch, useSelector } from 'react-redux'
 import ListItem from './ListItem';
-import HomeHeading from '@/components/HomeHeading';
+import HomeHeading from '@/components/Home/HomeHeading';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
 
 interface StageAndGalleriesProps {

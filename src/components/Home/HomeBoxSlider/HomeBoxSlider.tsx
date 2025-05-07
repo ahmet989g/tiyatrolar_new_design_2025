@@ -11,9 +11,9 @@ import {
 import { AppDispatch } from '@/store';
 import HomeBoxSliderItem from './HomeBoxSliderItem';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
-import ChevronLeftIcon from '../Icons/ChevronLeftIcon';
-import ChevronRightIcon from '../Icons/ChevronRightIcon';
-import SwiperCustom from '../SwiperSlider/SwiperCustom';
+import ChevronLeftIcon from '@/components/Icons/ChevronLeftIcon';
+import ChevronRightIcon from '@/components/Icons/ChevronRightIcon';
+import SwiperCustom from '@/components/SwiperSlider/SwiperCustom';
 import { NavigationOptions } from '@/types/customSwiper.types';
 
 interface HomeBoxSliderProps {
@@ -106,7 +106,7 @@ const HomeBoxSlider: FC<HomeBoxSliderProps> = ({
 
   return (
     <section className={`home-box-slider py-8 ${className}`}>
-      <div className="@container-normal mx-auto px-10">
+      <div className="@container-normal mx-auto px-20">
         {title && (
           <h2 className="text-2xl font-bold mb-6">{title}</h2>
         )}

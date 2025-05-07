@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import TheaterListItem from '../Theater/TheaterListItem';
+import TheaterListItem from '../../Theater/TheaterListItem';
 import HomeHeading from '../HomeHeading';
 import { TheaterItem } from '@/types/theaterItem';
 import LoadingSkeletonItem from './LoadingSkeletonItem';
@@ -30,7 +30,7 @@ const ThisMonthTheaterList: React.FC<ThisMonthTheaterListProps> = ({
   showAllButton = true,
   showAllLink = '#',
   columns = 6,
-  containerClassName = '@container-normal mx-auto px-10',
+  containerClassName = '@container-normal mx-auto px-20',
 }) => {
 
   const gridCols: Record<string, string> = {

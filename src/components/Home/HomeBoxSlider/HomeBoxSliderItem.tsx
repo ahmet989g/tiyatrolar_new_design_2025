@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { homeBoxSliderItem } from '@/types/homeBoxSliderItem';
-import CalendarIcon from '../Icons/CalendarIcon';
-import LocationIcon from '../Icons/LocationIcon';
+import CalendarIcon from '../../Icons/CalendarIcon';
+import LocationIcon from '../../Icons/LocationIcon';
 
 export interface HomeBoxSliderItemProps extends homeBoxSliderItem {
   /**

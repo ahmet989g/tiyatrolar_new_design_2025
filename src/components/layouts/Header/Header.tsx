@@ -8,12 +8,12 @@ import { AccountCircleIcon, HandshakeIcon, LoginIcon } from '@/components/Icons'
 const Header = () => {
   return (
     <header className="w-full shadow-sm">
-      <div className="@container-normal mx-auto px-10 py-4">
+      <div className="@container-normal mx-auto px-20 py-4">
         <div className="flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="flex-shrink-0">
             <Logo />
           </div>
-          <div className="absolute left-0 right-0 mx-auto flex-grow max-w-lg order-3 w-full md:w-auto md:order-none mt-4 md:mt-0">
+          <div className="absolute left-0 right-0 mx-auto flex-grow max-w-sm md:max-w-md lg:max-w-lg order-3 w-full md:w-auto md:order-none mt-4 md:mt-0">
             <SearchBar placeholder="Oyun, tür, sanatçı, sahne, şehir, galeri arayın" />
           </div>
           <div className="flex items-center space-x-1">

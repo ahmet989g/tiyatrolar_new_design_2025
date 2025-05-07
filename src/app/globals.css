@@ -8,7 +8,19 @@
   --foreground: #171717;
   --font-open-sans: 'Open Sans', sans-serif;
 }
-
+/*
+@utility container {
+  @variant xl {
+    max-width: 90rem;
+  }
+  @variant @2xl {
+    max-width: 1180px;
+  }
+  @variant @4xl {
+    max-width: 1280px;
+  }
+}
+*/
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);

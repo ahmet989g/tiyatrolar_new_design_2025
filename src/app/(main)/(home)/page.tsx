@@ -1,9 +1,9 @@
-import { CityAndStateTheaters } from "@/components/CityAndStateTheaters";
+import { CityAndStateTheaters } from "@/components/Home/CityAndStateTheaters";
 import StageAndGalleries from "@/components/Home/StageAndGalleries";
 import TheaterGroups from "@/components/Home/TheaterGroups";
-import HomeBoxSlider from "@/components/HomeBoxSlider";
-import TheaterSlider from "@/components/TheaterSlider";
-import { ChildTheaters, TheatersByLocation, TheatersByStage } from "@/components/ThisMonthTheaterList";
+import HomeBoxSlider from "@/components/Home/HomeBoxSlider";
+import TheaterSlider from "@/components/Home/TheaterSlider";
+import { ChildTheaters, TheatersByLocation, TheatersByStage } from "@/components/Home/ThisMonthTheaterList";
 import LazyLoadComponent from "@/components/LazyLoadComponent";
 
 export default function Home() {

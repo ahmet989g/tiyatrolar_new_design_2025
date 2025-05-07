@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <nav className="border-t border-gray-100">
-      <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap px-10 gap-x-6">
+      <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap px-20 gap-x-6">
         {navItems.map((item) => (
           <li key={item.id} className="py-2">
             <Link href={item.path} className="text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200">{item.name}</Link>

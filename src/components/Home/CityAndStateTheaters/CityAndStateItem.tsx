@@ -1,8 +1,8 @@
 // src/components/CityAndStateItem/CityAndStateItem.tsx
 import React from 'react';
 import Image from 'next/image';
-import CalendarIcon from '../Icons/CalendarIcon';
-import LocationIcon from '../Icons/LocationIcon';
+import CalendarIcon from '../../Icons/CalendarIcon';
+import LocationIcon from '../../Icons/LocationIcon';
 import { CityAndStateTheater } from '@/types/cityAndStateTheater';
 import Link from 'next/link';
 
@@ -36,17 +36,17 @@ const CityAndStateItem: React.FC<CityAndStateTheater> = ({
               {title}
             </h4>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
               {/* Tarih ve Saat */}
-              <span className="inline-flex items-center whitespace-nowrap gap-1">
-                <CalendarIcon size={24} className="text-white" />
+              <span className="inline-flex items-center whitespace-nowrap gap-1 max-w-[50%]">
+                <CalendarIcon size={24} className="text-white min-w-[24px]" />
                 <span className="text-sm font-semibold">
                   {date} / {time}
                 </span>
               </span>
 
               {/* Lokasyon */}
-              <span className="inline-flex items-center overflow-hidden max-w-[250px] gap-1">
+              <span className="inline-flex items-center overflow-hidden gap-1 max-w-[60%]">
                 <LocationIcon size={24} className="text-white min-w-[24px]" />
                 <span className="text-sm font-semibold truncate whitespace-nowrap">
                   {location}

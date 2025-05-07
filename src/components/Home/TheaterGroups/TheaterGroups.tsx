@@ -10,7 +10,7 @@ import { AppDispatch } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
 import TheaterGroupItem from '@/components/TheaterGroupItem/TheaterGroupItem';
 import LoadingSkeletonItem from '@/components/TheaterGroupItem/LoadingSkeletonItem';
-import HomeHeading from '@/components/HomeHeading';
+import HomeHeading from '@/components/Home/HomeHeading';
 
 interface TheaterGroupsProps {
   className?: string;

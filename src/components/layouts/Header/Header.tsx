@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Navbar from '@/components/layouts/Navbar';
 import Logo from '@/components/ui/Logo';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { AccountCircleIcon, HandshakeIcon, LoginIcon } from '@/components/Icons';
 
-const Header = () => {
+interface HeaderProps {
+  containerClassName?: string;
+}
+
+const Header: FC<HeaderProps> = ({
+  containerClassName = '@container-normal mx-auto px-20'
+}) => {
   return (
     <header className="w-full shadow-sm">
-      <div className="@container-normal mx-auto px-20 py-4">
+      <div className={`${containerClassName} py-4`}>
         <div className="flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="flex-shrink-0">
             <Logo />
@@ -23,7 +29,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      <Navbar containerClassName={containerClassName} />
     </header>
   )
 }

@@ -14,26 +14,73 @@ interface SahnedekilerPageProps {
 const SahnedekilerPage: React.FC<SahnedekilerPageProps> = ({ initialTheaters, totalCount }) => {
   const [theaters, setTheaters] = useState<TheaterItem[]>(initialTheaters);
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true); // İlk yükleme için state
   const [page, setPage] = useState(1);
+  const [scrollCount, setScrollCount] = useState(0);
+  const [shouldShowButton, setShouldShowButton] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  // Component mount olduğunda initial loading'i kaldır
+  useEffect(() => {
+    // İlk mounting sonrası çok kısa bir gecikme ile initialLoading false yapılır
+    // Bu sayede skeleton görünüp hemen sonra veriler gösterilir
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sayfa yüklendiğinde oyunların tamamını getirip olmadığını kontrol et
   useEffect(() => {
     setHasMore(theaters.length < totalCount);
   }, [theaters.length, totalCount]);
 
+  // Daha fazla tiyatro oyunu yükle
+  const loadMoreTheaters = useCallback(async () => {
+    if (loading || !hasMore) return;
+
+    try {
+      setLoading(true);
+      const nextPage = page + 1;
+
+      const response = await fetch(`/api/theaters?page=${nextPage}&limit=6`);
+      const data = await response.json();
+
+      if (data.theaters.length === 0) {
+        setHasMore(false);
+      } else {
+        setTheaters(prev => [...prev, ...data.theaters]);
+        setPage(nextPage);
+
+        // Scroll count artırılıyor
+        const newScrollCount = scrollCount + 1;
+        setScrollCount(newScrollCount);
+
+        // 2 scroll sonra butona geçiş
+        if (newScrollCount >= 2) {
+          setShouldShowButton(true);
+        }
+      }
+    } catch (error) {
+      console.error('Tiyatro oyunları yüklenirken hata oluştu:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, hasMore, page, scrollCount]);
+
   // Infinite scroll için Intersection Observer
   useEffect(() => {
-    if (loading) return;
+    if (loading || !hasMore || shouldShowButton) return;
 
     if (observer.current) {
       observer.current.disconnect();
     }
 
     observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
+      if (entries[0].isIntersecting && hasMore && !shouldShowButton) {
         loadMoreTheaters();
       }
     });
@@ -47,31 +94,7 @@ const SahnedekilerPage: React.FC<SahnedekilerPageProps> = ({ initialTheaters, to
         observer.current.disconnect();
       }
     };
-  }, [loading, hasMore]);
-
-  // Daha fazla tiyatro oyunu yükle
-  const loadMoreTheaters = useCallback(async () => {
-    if (loading || !hasMore) return;
-
-    try {
-      setLoading(true);
-      const nextPage = page + 1;
-
-      const response = await fetch(`/api/theaters?page=${nextPage}&limit=20`);
-      const data = await response.json();
-
-      if (data.theaters.length === 0) {
-        setHasMore(false);
-      } else {
-        setTheaters(prev => [...prev, ...data.theaters]);
-        setPage(nextPage);
-      }
-    } catch (error) {
-      console.error('Tiyatro oyunları yüklenirken hata oluştu:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [loading, hasMore, page]);
+  }, [loading, hasMore, shouldShowButton, loadMoreTheaters]);
 
   // Daha Fazla Göster butonu ile manuel yükleme
   const handleLoadMore = () => {
@@ -81,35 +104,32 @@ const SahnedekilerPage: React.FC<SahnedekilerPageProps> = ({ initialTheaters, to
   return (
     <div className="sahnedekiler-page py-8">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-primary">Sahnedeki Oyunlar</h1>
-        </div>
 
-        <div className="mb-4">
-          <p className="text-gray-600">
-            Toplam <span className="font-bold">{totalCount}</span> oyun listeleniyor
-          </p>
-        </div>
-
-        {/* Tiyatro listesi */}
-        <TheaterList theaters={theaters} />
+        {/* İlk yüklemede skeleton veya tiyatro listesi */}
+        {initialLoading ? (
+          <TheaterListSkeleton count={18} />
+        ) : (
+          <TheaterList theaters={theaters} />
+        )}
 
         {/* Yükleniyor göstergesi */}
         {loading && (
           <div className="my-8">
-            <TheaterListSkeleton count={8} />
+            <TheaterListSkeleton count={6} />
           </div>
         )}
 
         {/* Infinite scroll için gözlemci elemanı */}
-        {hasMore && <div ref={loadMoreRef} className="h-10 my-8" />}
+        {hasMore && !shouldShowButton && !loading && (
+          <div ref={loadMoreRef} className="h-10 my-8" />
+        )}
 
         {/* Daha fazla göster butonu */}
-        {hasMore && !loading && (
+        {hasMore && shouldShowButton && !loading && (
           <div className="flex justify-center my-8">
             <button
               onClick={handleLoadMore}
-              className="bg-primary hover:bg-secondary text-white font-bold py-3 px-6 rounded-full transition-colors"
+              className="bg-primary hover:bg-secondary text-white font-bold py-3 px-6 rounded-full transition-colors cursor-pointer"
             >
               Daha Fazla Göster
             </button>

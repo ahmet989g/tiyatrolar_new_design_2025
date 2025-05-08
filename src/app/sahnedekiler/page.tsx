@@ -2,6 +2,9 @@ import React from 'react';
 import { Metadata } from 'next';
 import { theaterService } from '@/services/theaterService';
 import SahnedekilerPage from '@/components/Sahnedekiler/SahnedekilerPage';
+import { unstable_noStore as noStore } from 'next/cache';
+
+export const dynamic = 'force-dynamic';
 
 // SEO için meta verileri
 export const metadata: Metadata = {
@@ -40,8 +43,11 @@ const generateStructuredData = () => {
 };
 
 export default async function Sahnedekiler() {
-  // İlk 20 oyunu server-side'da yükle
-  const initialTheaters = await theaterService.getTheaters();
+  // Server-side caching'i devre dışı bırakma
+  noStore();
+
+  // İlk 18 oyunu server-side'da yükle
+  const initialTheaters = await theaterService.getTheatersPaginated(1, 18);
   // Tüm oyun sayısını getir (sayfalaması için)
   const totalCount = await theaterService.getTotalTheaterCount();
 

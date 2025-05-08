@@ -1,7 +1,13 @@
 import Link from 'next/link';
-import React from 'react'
+import React, { FC } from 'react'
 
-const Navbar = () => {
+interface NavbarProps {
+  containerClassName?: string;
+}
+
+const Navbar: FC<NavbarProps> = ({
+  containerClassName = '@container-normal px-20'
+}) => {
 
   const navItems = [
     { id: 1, name: 'Tiyatrolar', path: '/sahnedekiler' },
@@ -17,15 +23,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="border-t border-gray-100">
-      <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap px-20 gap-x-6">
-        {navItems.map((item) => (
-          <li key={item.id} className="py-2">
-            <Link href={item.path} className="text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200">{item.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div className="border-t border-gray-100">
+      <div className={`${containerClassName}`}>
+        <nav className="">
+          <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap gap-x-6">
+            {navItems.map((item) => (
+              <li key={item.id} className="py-2">
+                <Link href={item.path} prefetch={true} className="text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200">{item.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
   )
 }
 

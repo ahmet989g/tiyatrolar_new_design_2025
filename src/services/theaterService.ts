@@ -24,7 +24,7 @@ export const theaterService = {
   // Sayfalama ve filtreleme ile tiyatro verilerini getir
   getTheatersPaginated: async (
     page: number = 1, 
-    limit: number = 20,
+    limit: number = 18,
     filters: FilterParams = {}
   ): Promise<TheaterItem[]> => {
     try {

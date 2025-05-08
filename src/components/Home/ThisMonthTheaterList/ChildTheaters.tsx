@@ -32,7 +32,7 @@ const ChildTheaters: React.FC<ChildTheatersProps> = ({ className }) => {
       items={items}
       status={status}
       error={error}
-      showAllLink={`/tiyatro/cocuk-tiyatrolari`}
+      showAllLink={`/cocuk-tiyatrolari`}
       className={className}
       columns={7}
       containerClassName='container mx-auto'

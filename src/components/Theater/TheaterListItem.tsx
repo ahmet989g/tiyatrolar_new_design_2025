@@ -22,7 +22,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
   const link = `/oyun/${slug}`;
 
   return (
-    <div>
+    <article>
       <Link href={link} className={`theater-item-card block relative ${className}`}>
         <div className="relative rounded-xl overflow-hidden group">
           {/* Resim Container */}
@@ -78,7 +78,7 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
             )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

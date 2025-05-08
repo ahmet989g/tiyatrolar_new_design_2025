@@ -4,7 +4,7 @@ import React from 'react'
 const Navbar = () => {
 
   const navItems = [
-    { id: 1, name: 'Tiyatrolar', path: '/tiyatrolar' },
+    { id: 1, name: 'Tiyatrolar', path: '/sahnedekiler' },
     { id: 2, name: 'Çocuk Tiyatroları', path: '/cocuk-tiyatrolari' },
     { id: 3, name: 'Sahneler', path: '/sahneler' },
     { id: 4, name: 'Atölyeler', path: '/atolyeler' },

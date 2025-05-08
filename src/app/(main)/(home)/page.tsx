@@ -5,13 +5,24 @@ import HomeBoxSlider from "@/components/Home/HomeBoxSlider";
 import TheaterSlider from "@/components/Home/TheaterSlider";
 import { ChildTheaters, TheatersByLocation, TheatersByStage } from "@/components/Home/ThisMonthTheaterList";
 import LazyLoadComponent from "@/components/LazyLoadComponent";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tiyatro Biletleri | Paylaşılabilir Sanat | tiyatrolar.com.tr",
+  description: "Tiyatro biletleri, Tiyatro oyunları, resitaller, toplulukları ve sahnelerine, sergiler ve galerilere İstanbul, Ankara, İzmir, Bursa, Eskişehir, Antalya ve ülkenin her noktasından tek tıkla ulaşabilirsiniz.",
+  alternates: {
+    canonical: "https://tiyatrolar.com.tr",
+  },
+  /*openGraph: {
+    images: ['/images/og/homepage.jpg'],
+  }*/
+};
 
 export default function Home() {
   return (
     <div>
       <HomeBoxSlider />
 
-      {/* Biletler için tiyatrolar.com.tr */}
       <TheaterSlider />
 
       {/* Baba Sahne'de Bu Ay */}

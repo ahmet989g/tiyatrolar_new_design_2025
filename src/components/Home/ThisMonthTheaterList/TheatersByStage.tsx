@@ -34,7 +34,7 @@ const TheatersByStage: React.FC<TheatersByStageProps> = ({ stageName, className 
       items={items}
       status={status}
       error={error}
-      showAllLink={`/sahne/${stageName}`}
+      showAllLink={`/tiyatro/${stageName}`}
       className={className}
       columns={8}
     />

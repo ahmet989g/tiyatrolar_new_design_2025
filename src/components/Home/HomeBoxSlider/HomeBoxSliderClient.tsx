@@ -1,0 +1,85 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { homeBoxSliderItem } from '@/types/homeBoxSliderItem';
+import HomeBoxSliderItem from './HomeBoxSliderItem';
+import LoadingSkeletonItem from './LoadingSkeletonItem';
+import SwiperCustom from '@/components/SwiperSlider/SwiperCustom';
+import ChevronLeftIcon from '@/components/Icons/ChevronLeftIcon';
+import ChevronRightIcon from '@/components/Icons/ChevronRightIcon';
+import { NavigationOptions } from '@/types/customSwiper.types';
+
+interface HomeBoxSliderClientProps {
+  slides: homeBoxSliderItem[];
+}
+
+const HomeBoxSliderClient = ({ slides }: HomeBoxSliderClientProps) => {
+  const [swiperLoaded, setSwiperLoaded] = useState(false);
+
+  // Swiper'ın yüklenmesini simüle etmek için
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSwiperLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Navigasyon düğmeleri
+  const renderPrevButton = (isDisabled: boolean) => (
+    <div className={`absolute top-1/2 -left-5 -translate-y-1/2 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out ${isDisabled ? "opacity-50" : ""}`}>
+      <ChevronLeftIcon size={26} className="relative left-1" />
+    </div>
+  );
+
+  const renderNextButton = (isDisabled: boolean) => (
+    <div className={`absolute top-1/2 -right-5 -translate-y-1/2 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out ${isDisabled ? "opacity-50" : ""}`}>
+      <ChevronRightIcon size={26} className="" />
+    </div>
+  );
+
+  const navigationOptions: NavigationOptions = {
+    customButtons: true,
+    renderPrevButton,
+    renderNextButton
+  };
+
+  return (
+    <div className="featured-slider-container relative">
+      {!swiperLoaded ? (
+        // Swiper yüklenene kadar skeleton gösterimi
+        <div className="flex gap-4 overflow-x-hidden">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <LoadingSkeletonItem key={index} />
+          ))}
+        </div>
+      ) : (
+        // Swiper içeriği
+        <SwiperCustom
+          className="home-box-slider-swiper"
+          autoplay={{
+            enabled: true,
+            delay: 5000,
+            pauseOnMouseEnter: true
+          }}
+          navigation={navigationOptions}
+          loop={false}
+          breakpoints={{
+            320: { slidesPerView: 2.2, spaceBetween: 10 },
+            640: { slidesPerView: 3.2, spaceBetween: 15 },
+            1024: { slidesPerView: 4.2, spaceBetween: 20 },
+            1280: { slidesPerView: 5, spaceBetween: 20 }
+          }}
+          grabCursor={true}
+          speed={600}
+        >
+          {slides.map((slide) => (
+            <HomeBoxSliderItem key={slide.id} {...slide} />
+          ))}
+        </SwiperCustom>
+      )}
+    </div>
+  );
+};
+
+export default HomeBoxSliderClient;

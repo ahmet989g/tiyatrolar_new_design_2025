@@ -1,5 +1,9 @@
+"use client"
 import Link from 'next/link';
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
+import { usePathname } from 'next/navigation';
+import { FilterIcon } from '@/components/Icons';
+import FilterModal from '@/components/Sahnedekiler/FilterModal';
 
 interface NavbarProps {
   containerClassName?: string;
@@ -8,6 +12,8 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({
   containerClassName = '@container-normal px-20'
 }) => {
+  const pathname = usePathname();
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const navItems = [
     { id: 1, name: 'Tiyatrolar', path: '/sahnedekiler' },
@@ -22,10 +28,13 @@ const Navbar: FC<NavbarProps> = ({
     { id: 10, name: 'Haberler', path: '/haberler' },
   ];
 
+  const showFilterButton = pathname === '/sahnedekiler';
+  const activeFilterCount = 3; // Örnek olarak aktif filtre sayısı
+
   return (
     <div className="border-t border-gray-100">
       <div className={`${containerClassName}`}>
-        <nav className="">
+        <nav className="flex items-center justify-between">
           <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap gap-x-6">
             {navItems.map((item) => (
               <li key={item.id} className="py-2">
@@ -33,8 +42,29 @@ const Navbar: FC<NavbarProps> = ({
               </li>
             ))}
           </ul>
+          {/* Filtre Butonu */}
+          {showFilterButton && (
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center gap-1 px-3 py-1 text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200 border border-light-blue hover:border-primary rounded-full cursor-pointer"
+            >
+              <FilterIcon size={18} />
+              Filtreler
+              {activeFilterCount > 0 && (
+                <span className="inline-flex items-center justify-center w-5 h-5 ml-1 text-xs text-white bg-primary rounded-full">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+          )}
         </nav>
       </div>
+
+      {/* Filtre Modal */}
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+      />
     </div>
   )
 }

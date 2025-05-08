@@ -18,6 +18,7 @@ const FilterModal: FC<FilterModalProps> = ({
       contentClassName="w-full max-w-md"
       isFilterModal={true}
       showCloseButton={true}
+      size="lg"
     >
       <div>
         Modal Test

@@ -46,12 +46,12 @@ const Navbar: FC<NavbarProps> = ({
           {showFilterButton && (
             <button
               onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-1 px-3 py-1 text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200 border border-light-blue hover:border-primary rounded-full cursor-pointer"
+              className="relative flex items-center gap-1 px-3 py-1 text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200 border border-light-blue hover:border-primary rounded-full cursor-pointer"
             >
-              <FilterIcon size={18} />
+              <FilterIcon size={22} />
               Filtreler
               {activeFilterCount > 0 && (
-                <span className="inline-flex items-center justify-center w-5 h-5 ml-1 text-xs text-white bg-primary rounded-full">
+                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary rounded-full">
                   {activeFilterCount}
                 </span>
               )}

@@ -1,0 +1,15 @@
+import { SVGProps, FC } from 'react';
+
+interface CloseIconProps extends SVGProps<SVGSVGElement> {
+  size?: number;
+}
+
+const CloseIcon: FC<CloseIconProps> = ({ size = 24, ...props }) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 -960 960 960" fill="currentColor" {...props}>
+      <path d="M480-426.96 277.85-224.81q-11.02 11.02-26.52 11.02t-26.52-11.02q-11.02-11.02-11.02-26.52t11.02-26.52L426.96-480 224.81-682.15q-11.02-11.02-11.02-26.52t11.02-26.52q11.02-11.02 26.52-11.02t26.52 11.02L480-533.04l202.15-202.15q11.02-11.02 26.52-11.02t26.52 11.02q11.02 11.02 11.02 26.52t-11.02 26.52L533.04-480l202.15 202.15q11.02 11.02 11.02 26.52t-11.02 26.52q-11.02 11.02-26.52 11.02t-26.52-11.02L480-426.96Z" />
+    </svg>
+  );
+};
+
+export default CloseIcon;

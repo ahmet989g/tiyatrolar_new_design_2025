@@ -4,6 +4,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { createPortal } from 'react-dom';
 import Button from "../Button";
+import { CloseIcon } from "@/components/Icons";
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface ModalProps {
   contentClassName?: string;
   showCloseButton?: boolean;
   closeOnOutsideClick?: boolean;
-  size?: "sm" | "md" | "lg" | "xl" | "full";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "full";
   isFilterModal?: boolean;
 }
 
@@ -31,62 +32,71 @@ const Modal: FC<ModalProps> = ({
   isFilterModal = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [isBrowser, setIsBrowser] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
 
-  // Server-side render kontrolü
+  // Server-side rendering kontrolü
   useEffect(() => {
-    setIsBrowser(true);
+    setIsMounted(true);
   }, []);
 
-  // Animasyon ve görünürlük yönetimi
+  // Modal görünürlük kontrolü
   useEffect(() => {
-    if (isOpen) {
-      // Modal açıldığında önce DOM'a ekle, sonra animasyon için görünür yap
-      document.body.style.overflow = "hidden"; // Arka plan kaydırmasını engelle
-      const timer = setTimeout(() => {
-        setVisible(true);
-      }, 10); // Çok kısa bir gecikme DOM'un güncellenmesini sağlar
-      return () => clearTimeout(timer);
-    } else {
-      // Modal kapandığında önce görünmez yap (animasyon için), sonra DOM'dan kaldır
-      setVisible(false);
+    let animationTimeout: NodeJS.Timeout;
 
-      // Animasyon tamamlandıktan sonra overflow'u düzelt
-      const timer = setTimeout(() => {
-        document.body.style.overflow = "auto";
-      }, 300); // 300ms animasyon süresinden sonra
-      return () => clearTimeout(timer);
+    if (isMounted) {
+      if (isOpen) {
+        // Modal açılıyor
+        setIsRendered(true); // İlk önce DOM'a ekle
+
+        // Tarayıcı bir sonraki frame'de render tamamlandıktan sonra animasyon sınıflarını ekle
+        animationTimeout = setTimeout(() => {
+          setIsVisible(true);
+        }, 10);
+
+        // Body scroll lock
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Modal kapanıyor
+        setIsVisible(false); // Önce animasyon sınıflarını kaldır
+
+        // Animasyon bittiğinde DOM'dan kaldır
+        animationTimeout = setTimeout(() => {
+          setIsRendered(false);
+        }, 300); // 300ms animasyon süresi
+
+        // Body scroll kilidini kaldır
+        document.body.style.overflow = '';
+      }
     }
-  }, [isOpen]);
 
-  // ESC tuşu ile modalı kapatma
+    return () => {
+      if (animationTimeout) clearTimeout(animationTimeout);
+    };
+  }, [isOpen, isMounted]);
+
+  // ESC tuşu ile kapanma
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
         onClose();
       }
     };
 
-    if (isOpen) {
-      window.addEventListener("keydown", handleEsc);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
-  // Modal dışına tıklama ile kapatma
-  const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    // modalRef dışındaki alana tıklandıysa modalı kapat
-    if (closeOnOutsideClick && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  // Dışarı tıklama ile kapanma
+  const handleOutsideClick = (e: React.MouseEvent) => {
+    if (closeOnOutsideClick && e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  // Modal içeriğini render etmek için koşul: tarayıcıda çalışıyor ve modal açık
-  if (!isBrowser || (!isOpen && !visible)) {
+  // Tarayıcıda değilse veya gösterilmiyorsa render etme
+  if (!isMounted || !isRendered) {
     return null;
   }
 
@@ -96,27 +106,35 @@ const Modal: FC<ModalProps> = ({
     md: "max-w-md",
     lg: "max-w-lg",
     xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
     full: "max-w-5xl",
   };
 
   const modalContent = (
-    <div
-      className={`fixed inset-0 z-50 ${visible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-in-out ${className}`}
-      aria-modal="true"
-      role="dialog"
-    >
-      {/* Karartılmış Arka Plan (Overlay) - onClick direkt burada */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black ${visible ? 'opacity-50' : 'opacity-0'} transition-opacity duration-300`}
+        className={`fixed inset-0 bg-black transition-opacity duration-300 ease-in-out ${isVisible ? 'opacity-50' : 'opacity-0'
+          }`}
         onClick={handleOutsideClick}
-      ></div>
+        aria-hidden="true"
+      />
 
       {/* Modal İçeriği */}
-      <div className="flex items-center justify-center w-full h-full p-4">
+      <div
+        className="relative z-10 flex items-center justify-center rounded-xl overflow-hidden"
+        onClick={handleOutsideClick}
+      >
         <div
           ref={modalRef}
           className={`relative bg-white rounded-xl shadow-xl ${sizeClasses[size]} w-full max-h-[90vh] overflow-auto 
-            transform ${visible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} transition-all duration-300 ${contentClassName}`}
+            transform transition-all duration-300 ease-in-out ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+            } ${contentClassName} ${className}`}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
         >
           {/* Modal Header */}
           {(title || showCloseButton) && (
@@ -129,13 +147,11 @@ const Modal: FC<ModalProps> = ({
               {showCloseButton && (
                 <button
                   type="button"
-                  className="p-1 rounded-full text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="rounded-full text-secondary hover:text-primary cursor-pointer border-2 transition-colors focus:outline-none"
                   onClick={onClose}
                   aria-label="Kapat"
                 >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <CloseIcon size={26} />
                 </button>
               )}
             </div>

@@ -281,11 +281,7 @@ const FilterModal: FC<FilterModalProps> = ({
             onClick={handleApplyFilters}
             className="px-6 rounded-xl"
           >
-            {activeFilterCount > 0 ? (
-              <>Filtreleri Uygula ({activeFilterCount})</>
-            ) : (
-              <>Filtreleri Uygula</>
-            )}
+            Filtreleri Uygula
           </Button>
         </div>
       </div>

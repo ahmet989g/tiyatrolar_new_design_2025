@@ -1,14 +1,12 @@
-// src/components/Sahnedekiler/FilterModal.tsx
 "use client";
 
 import React, { FC, useState, useEffect } from 'react';
 import Modal from '@/components/ui/Modal';
 import Button from '@/components/ui/Button';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isToday, addMonths, subMonths } from 'date-fns';
-import { tr } from 'date-fns/locale';
-import { ChevronLeftIcon, ChevronRightIcon, CurtainsIcon, FavoriteIcon, StarIcon, TheaterMaskIcon } from '@/components/Icons';
+import { CurtainsIcon, FavoriteIcon, StarIcon, TheaterMaskIcon } from '@/components/Icons';
 import FilterRadioCard from './FilterRadioCard';
 import Checkbox from '../ui/Checkbox';
+import DateRange from '../ui/DateRange';
 
 // Mock veri - gerçek uygulamada bu veriler bir API'dan gelebilir
 const CITIES = [
@@ -72,25 +70,10 @@ const FilterModal: FC<FilterModalProps> = ({
     categories: initialFilters?.categories || [],
   });
 
-  // Takvim için gerekli state'ler
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [nextMonthDate, setNextMonthDate] = useState(addMonths(new Date(), 1));
-  const [selectedDateRange, setSelectedDateRange] = useState<{
-    startDate: Date | null;
-    endDate: Date | null;
-  }>({
-    startDate: filters.startDate,
-    endDate: filters.endDate,
-  });
-
   // initialFilters değiştiğinde state'i güncelle
   useEffect(() => {
     if (initialFilters) {
       setFilters(initialFilters);
-      setSelectedDateRange({
-        startDate: initialFilters.startDate,
-        endDate: initialFilters.endDate,
-      });
     }
   }, [initialFilters]);
 
@@ -144,119 +127,32 @@ const FilterModal: FC<FilterModalProps> = ({
     });
   };
 
-  // Tarih seçimini güncelle
-  const handleDateSelection = (date: Date) => {
-    setSelectedDateRange(prev => {
-      // Henüz başlangıç tarihi seçilmemişse veya bitiş tarihi seçilmişse
-      if (!prev.startDate || prev.endDate) {
-        return {
-          startDate: date,
-          endDate: null,
-        };
-      }
-
-      // Başlangıç tarihi seçilmiş, bitiş tarihi seçilmemişse
-      // ve seçilen tarih başlangıç tarihinden önce veya aynı ise
-      if (date <= prev.startDate) {
-        return {
-          startDate: date,
-          endDate: null,
-        };
-      }
-
-      // Başlangıç tarihi seçilmiş, bitiş tarihi seçilmemişse
-      // ve seçilen tarih başlangıç tarihinden sonra ise
-      return {
-        startDate: prev.startDate,
-        endDate: date,
-      };
-    });
-
-    // Filtreleri güncelle
+  // Tarih aralığı değişimi
+  const handleDateRangeChange = (dateRange: { startDate: Date | null; endDate: Date | null }) => {
     setFilters(prev => ({
       ...prev,
-      startDate: selectedDateRange.startDate,
-      endDate: selectedDateRange.endDate,
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
     }));
-  };
-
-  // Önceki aya git
-  const goToPreviousMonth = () => {
-    setCurrentDate(prevDate => subMonths(prevDate, 1));
-    setNextMonthDate(prevDate => subMonths(prevDate, 1));
-  };
-
-  // Sonraki aya git
-  const goToNextMonth = () => {
-    setCurrentDate(prevDate => addMonths(prevDate, 1));
-    setNextMonthDate(prevDate => addMonths(prevDate, 1));
-  };
-
-  // Bir gün için sınıf belirle
-  const getDayClass = (day: Date) => {
-    const isSelected =
-      (selectedDateRange.startDate && isSameDay(day, selectedDateRange.startDate)) ||
-      (selectedDateRange.endDate && isSameDay(day, selectedDateRange.endDate)) ||
-      (selectedDateRange.startDate &&
-        selectedDateRange.endDate &&
-        day > selectedDateRange.startDate &&
-        day < selectedDateRange.endDate);
-
-    const isRangeStart = selectedDateRange.startDate && isSameDay(day, selectedDateRange.startDate);
-    const isRangeEnd = selectedDateRange.endDate && isSameDay(day, selectedDateRange.endDate);
-
-    let dayClasses = "w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold cursor-pointer";
-
-    if (isToday(day)) {
-      dayClasses += " border border-secondary";
-    }
-
-    if (isSelected) {
-      dayClasses += " bg-secondary text-white";
-    } else {
-      dayClasses += " hover:bg-secondary hover:text-white";
-    }
-
-    if (isRangeStart) {
-      dayClasses += " rounded-l-full";
-    }
-
-    if (isRangeEnd) {
-      dayClasses += " rounded-r-full";
-    }
-
-    if (isRangeStart && isRangeEnd) {
-      dayClasses += " rounded-full";
-    }
-
-    return dayClasses;
   };
 
   // Filtreleri temizle
   const handleClearFilters = () => {
     setFilters({
       list: 'new',
-      theaterType: 'private',
+      theaterType: '',
       startDate: null,
       endDate: null,
       cities: [],
       categories: [],
     });
-    setSelectedDateRange({
-      startDate: null,
-      endDate: null,
-    });
   };
 
   // Filtreleri uygula
   const handleApplyFilters = () => {
-    // Güncelleme: son tarih seçimi state'i filtrelere ekle
-    const updatedFilters = {
-      ...filters,
-      startDate: selectedDateRange.startDate,
-      endDate: selectedDateRange.endDate,
-    };
-    onApplyFilters(updatedFilters);
+    if (onApplyFilters) {
+      onApplyFilters(filters);
+    }
     onClose();
   };
 
@@ -268,10 +164,10 @@ const FilterModal: FC<FilterModalProps> = ({
     if (filters.list !== 'new') count++;
 
     // Default olmayan tiyatro türü seçilmişse
-    if (filters.theaterType !== 'private') count++;
+    if (filters.theaterType) count++;
 
     // Tarih seçilmişse
-    if (selectedDateRange.startDate) count++;
+    if (filters.startDate) count++;
 
     // Şehirler seçilmişse
     if (filters.cities.length > 0) count += filters.cities.length;
@@ -283,57 +179,6 @@ const FilterModal: FC<FilterModalProps> = ({
   };
 
   const activeFilterCount = getActiveFilterCount();
-
-  // Takvim oluşturma fonksiyonu
-  const renderCalendar = (currentMonth: Date) => {
-    const monthStart = startOfMonth(currentMonth);
-    const monthEnd = endOfMonth(currentMonth);
-    const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd });
-
-    // Ayın ilk gününün haftanın hangi günü olduğunu belirle (Pazartesi: 1, Pazar: 7)
-    const firstDayOfMonth = monthStart.getDay() || 7;
-
-    // Boş günler için dizi oluştur
-    const emptyDays = Array.from({ length: firstDayOfMonth - 1 }, (_, i) => i);
-
-    return (
-      <div className="calendar">
-        <div className="month-header flex justify-center items-center mb-4">
-          <h3 className="text-center font-semibold text-secondary">
-            {format(currentMonth, 'LLLL yyyy', { locale: tr })}
-          </h3>
-        </div>
-        <div className="days-header grid grid-cols-7 text-center mb-1">
-          <div className="day font-medium text-xs text-gray-500">Pzt</div>
-          <div className="day font-medium text-xs text-gray-500">Sal</div>
-          <div className="day font-medium text-xs text-gray-500">Çar</div>
-          <div className="day font-medium text-xs text-gray-500">Per</div>
-          <div className="day font-medium text-xs text-gray-500">Cum</div>
-          <div className="day font-medium text-xs text-gray-500">Cts</div>
-          <div className="day font-medium text-xs text-gray-500">Pz</div>
-        </div>
-        <div className="days-grid grid grid-cols-7 gap-1">
-          {/* Ayın ilk gününden önceki boş günler */}
-          {emptyDays.map(i => (
-            <div key={`empty-${i}`} className="empty-day"></div>
-          ))}
-
-          {/* Ayın günleri */}
-          {monthDays.map(day => (
-            <button
-              key={day.toString()}
-              type="button"
-              onClick={() => handleDateSelection(day)}
-              className={getDayClass(day) + " text-secondary"}
-              aria-label={format(day, 'd MMMM yyyy', { locale: tr })}
-            >
-              {format(day, 'd')}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   return (
     <Modal
@@ -382,32 +227,13 @@ const FilterModal: FC<FilterModalProps> = ({
         {/* Takvim */}
         <div className="py-4">
           <h3 className="text-base font-semibold text-primary mb-3">Takvim</h3>
-          <div className="relative">
-            {/* Ay değiştirme butonları */}
-            <div className="flex justify-between items-center">
-              <button
-                type="button"
-                onClick={goToPreviousMonth}
-                className="absolute left-0 -top-1 p-1 cursor-pointer rounded-full text-secondary hover:text-primary transition-colors"
-              >
-                <ChevronLeftIcon size={20} />
-              </button>
-              <div className="flex-grow"></div>
-              <button
-                type="button"
-                onClick={goToNextMonth}
-                className="absolute right-0 -top-1 p-1 cursor-pointer rounded-full text-secondary hover:text-primary transition-colors"
-              >
-                <ChevronRightIcon size={20} />
-              </button>
-            </div>
-
-            {/* İki aylık takvim */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>{renderCalendar(currentDate)}</div>
-              <div>{renderCalendar(nextMonthDate)}</div>
-            </div>
-          </div>
+          <DateRange
+            selectedDateRange={{
+              startDate: filters.startDate,
+              endDate: filters.endDate,
+            }}
+            onDateRangeChange={handleDateRangeChange}
+          />
         </div>
 
         {/* Şehirler */}

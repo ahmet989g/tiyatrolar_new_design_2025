@@ -12,6 +12,7 @@ const SwiperNavigationButtons: React.FC<SwiperNavigationButtonsProps> = ({
   isBeginning,
   isEnd,
   loop = false,
+  className = '',
 }) => {
   // Navigasyon devre dışıysa hiçbir şey render etme
   if (!navigation) return null;
@@ -54,7 +55,7 @@ const SwiperNavigationButtons: React.FC<SwiperNavigationButtonsProps> = ({
       );
 
     return (
-      <div className="custom-navigation-container h-0">
+      <div className={`${className} custom-navigation-container h-0`}>
         {navigation.showPrevButton !== false && <PrevButtonComponent />}
         {navigation.showNextButton !== false && <NextButtonComponent />}
       </div>

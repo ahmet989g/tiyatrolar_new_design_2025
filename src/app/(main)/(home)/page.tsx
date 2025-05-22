@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div>
+    <div className="mt-30">
       <HomeBoxSlider />
 
       <TheaterSlider />

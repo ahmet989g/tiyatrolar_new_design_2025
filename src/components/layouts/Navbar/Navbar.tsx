@@ -37,7 +37,7 @@ const Navbar: FC<NavbarProps> = ({
         <nav className="flex items-center justify-between">
           <ul className="flex md:overflow-x-auto scrollbar-hide whitespace-nowrap gap-x-6">
             {navItems.map((item) => (
-              <li key={item.id} className="py-2">
+              <li key={item.id} className="py-3">
                 <Link href={item.path} prefetch={true} className="text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200">{item.name}</Link>
               </li>
             ))}
@@ -46,12 +46,12 @@ const Navbar: FC<NavbarProps> = ({
           {showFilterButton && (
             <button
               onClick={() => setIsFilterModalOpen(true)}
-              className="relative flex items-center gap-1 px-3 py-1 text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200 border border-light-blue hover:border-primary rounded-full cursor-pointer"
+              className="relative flex items-center gap-1 px-3 py-1 text-sm font-semibold text-light-blue hover:text-primary transition-colors duration-200 rounded-full cursor-pointer"
             >
               <FilterIcon size={22} />
               Filtreler
               {activeFilterCount > 0 && (
-                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary rounded-full">
+                <span className="absolute -top-1 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary rounded-full">
                   {activeFilterCount}
                 </span>
               )}

@@ -41,6 +41,7 @@ const SearchBar: FC<SearchBarProps> = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        document.body.style.overflow = 'auto'; // Arama kutusu kapandığında sayfa kaydırılabilir hale getir
       }
     };
 
@@ -53,6 +54,7 @@ const SearchBar: FC<SearchBarProps> = ({
   // Arama kutusunu kapatma fonksiyonu
   const handleCloseSearchBox = useCallback(() => {
     setIsOpen(false);
+    document.body.style.overflow = 'auto';
   }, []);
 
   // Input değiştiğinde arama yap
@@ -62,9 +64,11 @@ const SearchBar: FC<SearchBarProps> = ({
 
     if (value.trim().length > 1) {
       setIsOpen(true);
+      document.body.style.overflow = 'hidden';
       debouncedSearchRef.current?.(value.trim());
     } else {
       setIsOpen(false);
+      document.body.style.overflow = 'auto';
       dispatch(clearResults());
       handleCloseSearchBox();
     }
@@ -74,6 +78,7 @@ const SearchBar: FC<SearchBarProps> = ({
   const handleInputFocus = useCallback(() => {
     if (query.trim().length > 1) {
       setIsOpen(true);
+      document.body.style.overflow = 'hidden';
     }
   }, [query]);
 

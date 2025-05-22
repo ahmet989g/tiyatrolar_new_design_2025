@@ -1,5 +1,7 @@
 import { TheaterItem } from '@/types/theaterItem';
 import { theaterData } from '@/mock/theaterData';
+import { TheaterMockType } from '@/types/theatersMock';
+import { theatersData } from '@/mock/theatersData';
 
 interface FilterParams {
   location?: string | null;
@@ -91,5 +93,21 @@ export const theaterService = {
       console.error('Theater sayısı getirilirken hata:', error);
       throw error;
     }
-  }
+  },
+
+  // Slug'a göre tiyatro detaylarını getir
+  getTheaterBySlug: async (slug: string): Promise<TheaterMockType | null> => {
+    try {
+      // API çağrısını simüle etmek için gecikme
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      // Mock veri üzerinde slug'a göre filtreleme yap
+      const theater = theatersData.find(item => item.slug === slug);
+      
+      return theater || null;
+    } catch (error) {
+      console.error(`Theater "${slug}" verileri getirilirken hata:`, error);
+      throw error;
+    }
+  },
 };

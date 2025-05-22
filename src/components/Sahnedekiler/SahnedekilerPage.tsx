@@ -102,7 +102,7 @@ const SahnedekilerPage: React.FC<SahnedekilerPageProps> = ({ initialTheaters, to
   };
 
   return (
-    <div className="sahnedekiler-page py-8">
+    <div className="sahnedekiler-page py-8 mt-30">
       <div className="container mx-auto px-4">
 
         {/* İlk yüklemede skeleton veya tiyatro listesi */}

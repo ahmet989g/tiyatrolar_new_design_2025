@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { TheaterItem } from '@/types/theaterItem';
@@ -7,7 +7,7 @@ export interface TheaterSliderItemProps extends TheaterItem {
   className?: string;
 }
 
-const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
+const TheaterSliderItem: FC<TheaterSliderItemProps> = ({
   title,
   slug,
   location,
@@ -22,16 +22,16 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
   const link = `/oyun/${slug}`;
 
   return (
-    <article>
+    <article className="group/item">
       <Link href={link} className={`theater-item-card block relative ${className}`}>
-        <div className="relative rounded-xl overflow-hidden group">
+        <div className="relative rounded-xl overflow-hidden">
           {/* Resim Container */}
           <div className="relative aspect-[2/3]">
             <Image
               src={image}
               alt={`${title} afişi`}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover/item:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
 
@@ -43,14 +43,12 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
                 </span>
               </div>
             )}
-
-
           </div>
         </div>
       </Link>
       <div className="flex flex-col gap-0.5 mt-2">
         <h3 className="">
-          <Link href={link} className="text-md font-semibold text-light-blue hover:text-primary whitespace-nowrap overflow-hidden truncate w-full block">
+          <Link href={link} className="text-md font-semibold text-light-blue group-hover/item:text-primary whitespace-nowrap overflow-hidden truncate w-full block">
             {title}
           </Link>
         </h3>
@@ -82,4 +80,4 @@ const TheaterSliderItem: React.FC<TheaterSliderItemProps> = ({
   );
 };
 
-export default React.memo(TheaterSliderItem);
+export default memo(TheaterSliderItem);

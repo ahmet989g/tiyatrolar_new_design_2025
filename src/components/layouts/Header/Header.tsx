@@ -1,9 +1,12 @@
+"use client";
+
 import React, { FC } from 'react';
 import Navbar from '@/components/layouts/Navbar';
 import Logo from '@/components/ui/Logo';
 import SearchBar from '@/components/ui/SearchBar';
 import Button from '@/components/ui/Button';
 import { AccountCircleIcon, HandshakeIcon, LoginIcon } from '@/components/Icons';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 interface HeaderProps {
   containerClassName?: string;
@@ -12,8 +15,13 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({
   containerClassName = '@container-normal mx-auto px-20'
 }) => {
+  const { scrollDirection, isAtTop } = useScrollDirection(50);
+
+  // Header state'leri
+  const shouldShowFullHeader = isAtTop || scrollDirection === 'up';
+
   return (
-    <header className="w-full shadow-sm">
+    <header className={`fixed bg-white z-50 w-full shadow-sm transition-transform duration-400 ease-in-out ${shouldShowFullHeader ? 'translate-y-0' : '-translate-y-[78px]'}`}>
       <div className={`${containerClassName} py-4`}>
         <div className="flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="flex-shrink-0">

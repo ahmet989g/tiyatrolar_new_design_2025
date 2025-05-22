@@ -25,6 +25,7 @@ import SwiperNavigationButtons from './SwiperNavigationButtons';
 const SwiperCustom: React.FC<SwiperCustomProps> = ({
   children,
   className = '',
+  navigationClassName = '',
   breakpoints = {
     320: { slidesPerView: 1 },
     768: { slidesPerView: 2 },
@@ -43,6 +44,9 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
   loadingComponent = null,
   slidesPerGroup,
   centeredSlides = false,
+  hasPoster = false,
+  onMouseEnter,
+  onMouseLeave
 }) => {
   // Swiper instance ve durum state'leri
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
@@ -130,10 +134,12 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
             setIsEnd(swiper.isEnd);
           }
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         {/* Children prop'undan gelen içeriği SwiperSlide içinde göster */}
         {childrenArray.map((child, index) => (
-          <SwiperSlide key={index}>{child}</SwiperSlide>
+          <SwiperSlide key={index} className={`${hasPoster && index === 0 ? "max-w-[320px]" : ""}`}>{child}</SwiperSlide>
         ))}
       </Swiper>
 
@@ -145,6 +151,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
           isBeginning={isBeginning}
           isEnd={isEnd}
           loop={loop}
+          className={`${navigationClassName}`}
         />
       )}
     </section>

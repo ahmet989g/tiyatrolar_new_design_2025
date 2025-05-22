@@ -26,7 +26,7 @@ const Checkbox: FC<CheckboxProps> = ({
           onChange={onChange}
         />
         <div
-          className={`w-5 h-5 border-2 mr-2 flex items-center justify-center transition-colors 
+          className={`w-5 h-5 border-2 mr-2 rounded-md flex items-center justify-center transition-colors 
             ${isChecked
               ? 'border-secondary text-secondary'
               : 'border-light-blue'

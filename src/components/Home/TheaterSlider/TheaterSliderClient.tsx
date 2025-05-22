@@ -26,19 +26,19 @@ const TheaterSliderClient: React.FC<TheaterSliderClientProps> = ({ slides }) => 
 
   // Custom navigation buttons
   const renderPrevButton = (isDisabled: boolean) => (
-    <div className={`absolute top-[36%] -left-5 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out ${isDisabled ? "opacity-50" : ""}`}>
+    <div className={`absolute top-[36%] -left-5 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out opacity-0 ${isDisabled ? "group-hover:opacity-50" : "group-hover:opacity-100"}`}>
       <ChevronLeftIcon size={26} className="relative left-1" />
     </div>
   );
 
   const renderNextButton = (isDisabled: boolean) => (
-    <div className={`absolute top-[36%] -right-5 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out ${isDisabled ? "opacity-50" : ""}`}>
+    <div className={`absolute top-[36%] -right-5 w-10 h-10 z-10 cursor-pointer flex items-center justify-center bg-white border border-light-blue text-secondary hover:bg-secondary hover:text-white hover:border-secondary rounded-full transition-all duration-300 ease-in-out opacity-0 ${isDisabled ? "group-hover:opacity-50" : "group-hover:opacity-100"}`}>
       <ChevronRightIcon size={26} />
     </div>
   );
 
   return (
-    <div className="featured-slider-container relative">
+    <div className="featured-slider-container relative group">
       {!swiperLoaded ? (
         // Swiper yüklenene kadar skeleton gösterimi
         <div className="flex gap-4 overflow-x-hidden">

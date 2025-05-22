@@ -97,6 +97,10 @@ export interface SwiperNavigationButtonsProps {
    * Döngü modu aktif mi?
    */
   loop?: boolean;
+  /**
+   * Özel CSS sınıfı
+   */
+  className?: string;
 }
 
 export interface ExtendedSwiperOptions extends Omit<SwiperOptions, 'virtual'> {
@@ -260,6 +264,10 @@ export interface CustomSwiperProps {
    * Slaytları merkeze hizalama
    */
   centeredSlides?: boolean;
+  /**
+  * Slider poster görseli barındırıyorsa, görselin boyutunu ayarlamak için
+  */
+  hasPoster?: boolean;
 }
 
 export interface SwiperCustomProps {
@@ -271,6 +279,10 @@ export interface SwiperCustomProps {
    * Swiper için özel sınıf adı
    */
   className?: string;
+  /**
+   * Swiper için navigation sınıf adı
+   */
+  navigationClassName?: string;
   /**
    * Her ekran boyutu için kaç slayt gösterileceğini belirler
    */
@@ -329,4 +341,10 @@ export interface SwiperCustomProps {
    * Slaytları merkeze hizalama
    */
   centeredSlides?: boolean;
+  /**
+  * Slider poster görseli barındırıyorsa, görselin boyutunu ayarlamak için
+  */
+  hasPoster?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }

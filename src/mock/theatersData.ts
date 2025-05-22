@@ -43,7 +43,7 @@ export const theatersData: TheaterMockType[] = [
     is_watchlist: false,
     description:
       "“Birini sevmek, onu her zaman, her koşulda seveceğin anlamına gelmiyor. Hatta bazen bunu yapmak o kadar zorlaşıyor ki… Ama birini gerçekten seviyorsan, üstesinden geliyorsun. Bir şekilde bir yolunu bulup atlatıyorsun ve bu seni daha iyi biri yapıyor.” <br/>-SAAT KAÇ?<br/>-Benim hiç zamanla aram iyi olmadı…<br/>Peki ne yapacağız Viv? Bilsek mesela yaşadıklarımızı hatırlamayacağız… Bi’ gün aniden kazağın yok, hiç etek giymemişsin, sonra saçın, sonra sol gözün, sonra telaşın, sonra o kadar dil bilişin, sonra bir sabah hiç çocuğumuz olmamış, sonra hiç birbirimizi kırmamışız gibi olacak, hiç zorlanmamışız gibi, hiç üzülmemişsin ya da hiç korkmamışız gibi, ya da belki bir gün hiç tanışmamışız gibi olacak…<br/><br/>UYARI:<br/>*Epilepsi ve sinestesi hastaları için sakıncalıdır.<br/>*Kapı açılış 20:00'dir. Etkinlik başladıktan sonra hiç bir şekilde salona alım yapılmamaktadır.",
-    fragman_video: "https://www.youtube.com/watch?v=8Xk1g5v0x2E",
+    fragman_video: "https://www.youtube.com/watch?v=zKVOU9hX-dE",
     galleries: [
       {
         id: "1",
@@ -85,6 +85,13 @@ export const theatersData: TheaterMockType[] = [
         status: 1,
         session_detail: "SAAT 12:00'DA SATIŞTA",
       },
+      {
+        id: "3",
+        session_date: "12.06.2025 Perşembe / 20:30",
+        location: "Craft Tiyatro / İstanbul",
+        status: 2,
+        session_detail: "",
+      },
     ],
     awards: [
       {
@@ -110,14 +117,14 @@ export const theatersData: TheaterMockType[] = [
         id: "1",
         name: "Olgu Baran Kubilay",
         slug: "olgu-baran-kubilay",
-        image: "/images/theaters/84-90-62-74-old-fools/cast/ali-atay.jpg",
+        image: "/images/theaters/84-90-62-74-old-fools/cast/olgu-baran-kubilay.jpg",
         role: 1,
       },
       {
         id: "2",
         name: "İdil Sivritepe",
         slug: "idil-sivritepe",
-        image: "/images/theaters/84-90-62-74-old-fools/cast/ali-atay.jpg",
+        image: "/images/theaters/84-90-62-74-old-fools/cast/idil-sivritepe.jpg",
         role: 1,
       },
       {
@@ -155,8 +162,8 @@ export const theatersData: TheaterMockType[] = [
       {
         id: "7",
         name: "Yücel Öztürk",
-        slug: "yücel-ozturk",
-        image: "/images/theaters/84-90-62-74-old-fools/cast/yücel-ozturk.jpg",
+        slug: "yucel-ozturk",
+        image: "/images/theaters/84-90-62-74-old-fools/cast/yucel-ozturk.jpg",
         role: 2,
         role_title: "Yardımcı Yönetmen",
       },

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import SwiperCustom from '@/components/SwiperSlider/SwiperCustom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/components/Icons';
 import { NavigationOptions } from '@/types/customSwiper.types';
-import TheaterSliderSkeleton from './TheaterSliderSkeleton';
+import TheaterSliderSkeleton from './Loading/TheaterSliderContentSkeleton';
 
 interface GalleryImage {
   id: string;

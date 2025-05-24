@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react'
 import { notFound } from 'next/navigation';
 import { theaterService } from '@/services/theaterService';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import TheaterHeader from '@/components/Theater/TheaterDetail/TheaterHeader';
 import TheaterInfoList from '@/components/Theater/TheaterDetail/TheaterInfoList';
 import TheaterRating from '@/components/Theater/TheaterDetail/TheaterRating';
 import TheaterDetailSkeleton from '@/components/Theater/TheaterDetail/TheaterDetailSkeleton';
 import TheaterSlider from '@/components/Theater/TheaterDetail/TheaterSlider';
 import TheaterContent from '@/components/Theater/TheaterDetail/TheaterContent';
+import TheaterActionButtons from '@/components/Theater/TheaterDetail/TheaterActionButtons';
 
 interface TheaterDetailPageProps {
   params: { slug: string };
@@ -21,7 +22,6 @@ export const revalidate = 0;
 // Dinamik meta veri oluşturma
 export async function generateMetadata(
   { params }: TheaterDetailPageProps,
-  parent: ResolvingMetadata
 ): Promise<Metadata> {
   // Tiyatro verilerini getir
   const theater = await theaterService.getTheaterBySlug(params.slug);
@@ -89,6 +89,16 @@ export default async function TheaterDetailPage({ params }: TheaterDetailPagePro
 
           {/* Slider */}
           <TheaterSlider theater={theater} />
+
+          <div className="mt-7 flex flex-wrap items-center justify-between">
+            <TheaterActionButtons
+              theaterId={theater.id}
+              theaterTitle={theater.title}
+              isFavorite={theater.is_favorite}
+              isFollow={theater.is_follow}
+              isWatchlist={theater.is_watchlist}
+            />
+          </div>
 
           {/* İçerik */}
           <TheaterContent theater={theater} />

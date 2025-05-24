@@ -60,7 +60,7 @@ const TheaterCast: FC<TheaterCastProps> = ({ theater, limit }) => {
           <div className="mt-8">
             <h2 className="text-2xl font-semibold text-secondary mb-4">Sahne Arkası</h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-6">
               {displayedContributer.map(member => (
                 <ContributerItem
                   key={member.id}

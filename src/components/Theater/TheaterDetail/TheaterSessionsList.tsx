@@ -1,9 +1,10 @@
+"use client";
 import React from 'react';
 import { TheaterMockType } from '@/types/theatersMock';
-import { TicketIcon } from '@/components/Icons';
 import Link from 'next/link';
 import GradientButton from '@/components/ui/GradientButton';
 import CalendarIcon from '@/components/Icons/CalendarIcon';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 interface TheaterSessionsListProps {
   theater: TheaterMockType;
@@ -14,6 +15,9 @@ interface TheaterSessionsListProps {
  * Tiyatro seanslarını gösteren bileşen
  */
 const TheaterSessionsList: React.FC<TheaterSessionsListProps> = ({ theater, isSticky = false }) => {
+  const { scrollDirection, isAtTop } = useScrollDirection(50);
+  const shouldShowFullHeader = isAtTop || scrollDirection === 'up';
+
   if (!theater.sessions || theater.sessions.length === 0) {
     return null;
   }
@@ -38,7 +42,7 @@ const TheaterSessionsList: React.FC<TheaterSessionsListProps> = ({ theater, isSt
   };
 
   return (
-    <div className={`p-6 bg-white rounded-xl shadow-[0px_0px_10px_2px_rgba(0,_0,_0,_0.1)] ${isSticky ? "sticky top-4" : ""}`}>
+    <div className={`p-6 bg-white rounded-xl shadow-[0px_0px_10px_2px_rgba(0,_0,_0,_0.1)] transition-all duration-350 ease-in-out ${isSticky ? "sticky top-" + (shouldShowFullHeader ? "40" : "20") : ""}`}>
       <h2 className="text-2xl font-semibold text-secondary mb-4">Güncel Seanslar</h2>
 
       <div className="space-y-3">

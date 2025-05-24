@@ -12,6 +12,13 @@ const TheaterSliderSkeleton: React.FC = () => {
         <div className="relative h-[600px] w-full rounded-xl bg-gray-200"></div>
         <div className="relative h-[600px] max-w-20 w-full rounded-xl bg-gray-200"></div>
       </div>
+      <div className="mt-7">
+        <div className="flex flex-wrap gap-3">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="h-6 bg-gray-200 rounded-full w-30"></div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
